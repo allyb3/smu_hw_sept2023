@@ -1,0 +1,41 @@
+Sub doStonks()
+
+    ' for each row
+    ' add the total VOLUME
+    ' check if next row is the same STOCK
+    ' if it isn't, we've reached the total
+    ' write out to column I and L
+    ' reset the counter
+    
+    Dim currStock As String
+    Dim totalVolume As Double
+    Dim nextStock As String
+    Dim row As Long
+    Dim summaryRow As Integer
+    Dim lastRow As Long
+    
+    ' defaults
+    totalVolume = 0
+    summaryRow = 2
+    lastRow = Cells(ActiveSheet.Rows.Count, 1).End(xlUp).row
+    
+    For row = 2 To lastRow
+        currStock = Cells(row, 1).Value
+        nextStock = Cells(row + 1, 1).Value
+        
+        ' add total
+        totalVolume = totalVolume + Cells(row, 7).Value
+    
+        If nextStock <> currStock Then
+            Cells(summaryRow, 9).Value = currStock
+            Cells(summaryRow, 12).Value = totalVolume
+            
+            ' reset
+            totalVolume = 0
+            summaryRow = summaryRow + 1
+        End If
+    
+    Next row
+
+End Sub
+
